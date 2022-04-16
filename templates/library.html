@@ -25,10 +25,10 @@
     <ul  class="list-group">
         {%- for item in files %}
         <a><li  class="list-group-item">
-            <a href="{{url_for('download', filename=item.name)}}">
+            <a href="{{url_for('download', filename=item.name)}}" style="float:left; margin: 20px ;">
                 {{ item.name }}
             </a>
-            <div id="stl_cont{{ item.key }}" style="width:250px;height:250px;margin:0 auto;"></div>
+            <div id="stl_cont{{ item.key }}" style="width:350px;height:350px; float: right;"></div>
         </li></a>
         {%- endfor %}
     </ul>
