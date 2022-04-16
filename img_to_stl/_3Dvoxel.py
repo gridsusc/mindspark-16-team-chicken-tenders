@@ -10,6 +10,7 @@ from stl import mesh
 from skimage.filters import threshold_otsu
 import matplotlib.pyplot as plt 
 from skimage import measure
+import time
 
 # image1 = cv2.imread("center: 1.png",0)
 # cv2.imshow("image1", image1)
@@ -124,12 +125,12 @@ from skimage import measure
 # print("mesh saved")
 
 def _3Dvoxel():
-    image1 = cv2.imread("center_0.png",0)
+    image1 = cv2.imread("/home/adkishor/projects/mindspark-16-team-chicken-tenders/mindspark-16-team-chicken-tenders/center_2.png",0)
 
     image1 = cv2.bitwise_not(image1)
     image1 = cv2.dilate(image1, kernel=np.ones((7,7)), iterations=1)
     image1 = cv2.bitwise_not(image1)
-    image2 = cv2.imread("center_processing_3.png",0)
+    image2 = cv2.imread("/home/adkishor/projects/mindspark-16-team-chicken-tenders/mindspark-16-team-chicken-tenders/center_processing_0.png",0)
 
     show = np.zeros_like(image1)
     show[image1 == 0] = 255
@@ -177,7 +178,7 @@ def _3Dvoxel():
             mymesh.vectors[i][j] = verts[f[j], :]
 
     print("mesh created!!")
-
-    mymesh.save('output.stl')
+    path = "/home/adkishor/projects/mindspark-16-team-chicken-tenders/mindspark-16-team-chicken-tenders/static/"
+    mymesh.save(path+'output'+str(time.time())+'.stl')
 
     print("mesh saved")
