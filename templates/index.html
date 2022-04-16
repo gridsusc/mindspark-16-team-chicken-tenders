@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>
+        TCT
+    </title>
+
+    <!-- Web URL icon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='web_icon.png') }}" sizes="16x16">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='web_icon.png') }}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='web_icon.png') }}" sizes="96x96">
+
+</head>
+<body>
+
+<!-- Top nav bar logo and text -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand">
+        <img src="{{ url_for('static', filename='chicken_tenders.svg') }}" width="100" height="54" class="d-inline-block align-centre" alt="">
+        Team Chicken Tenders <sup>©</sup>
+    </a>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Image to STL</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/library">Library</a>
+        </li>
+    </ul>
+</nav>
+</br>
+    
+<p><h1 align="center">Image to STL converter</h1></p>
+<div class="container">
+<div class="row">
+    <h2>Select an image to convert to STL.</h2>
+    <form method="post" action="/" enctype="multipart/form-data">
+        <dl>
+            <p>
+                <input type="file" name="file" class="form-control" autocomplete="off" required accept=".png, .jpg, .gif, .jpeg">
+            </p>
+        </dl>
+        <p>
+            <input type="submit" value="Convert" class="btn btn-info">
+        </p>
+
+        <h2>
+            {{ output_message }}
+        </h2>
+    </form>
+</div>
+</div>
+</body>
+</html>
