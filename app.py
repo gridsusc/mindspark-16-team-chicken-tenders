@@ -1,12 +1,17 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, send_file
 import os
 from werkzeug.utils import secure_filename
 from img_to_stl.test import test
 from img_to_stl._3Dvoxel import _3Dvoxel
+from os import listdir
+from os.path import isfile, join
+
 
 app = Flask(__name__)
 
 app.secret_key = "secret key"
+
+mypath = "./static"
 
 
 @app.route('/')
@@ -55,7 +60,16 @@ def convert_image():
 
 @app.route('/library')
 def library():
-    return render_template('library.html')
+    onlyfiles = [{'name': f, 'key': f.split('.')[0]} for f in listdir(mypath) if isfile(join(mypath, f)) and f.endswith('.stl')]
+    return render_template('library.html', files=onlyfiles)
+
+
+@app.route('/download')
+def download():
+    # For windows you need to use drive name [ex: F:/Example.pdf]
+    path = "./static/" + request.args.get('filename')
+
+    return send_file(path, as_attachment=True)
 
 
 if __name__ == "__main__":

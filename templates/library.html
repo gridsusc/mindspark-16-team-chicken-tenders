@@ -1,43 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{%extends "base.html"%}
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+{% block content %}
+    <!-- Top nav bar logo and text -->
 
-    <title>
-        TCT
-    </title>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand">
+            <img src="{{ url_for('static', filename='chicken_tenders.svg') }}" width="100" height="54" class="d-inline-block align-centre" alt="">
+            Team Chicken Tenders <sup>©</sup>
+        </a>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Image to STL</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/library">Library</a>
+            </li>
+        </ul>
+    </nav>
+    <br>
 
-    <!-- Web URL icon -->
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='web_icon.png') }}" sizes="16x16">
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='web_icon.png') }}" sizes="32x32">
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='web_icon.png') }}" sizes="96x96">
+    <h1 class="display-4" align="center">Available STL Files</h1>
 
-</head>
-<body>
-
-<!-- Top nav bar logo and text -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand">
-        <img src="{{ url_for('static', filename='chicken_tenders.svg') }}" width="100" height="54" class="d-inline-block align-centre" alt="">
-        Team Chicken Tenders <sup>©</sup>
-    </a>
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <a class="nav-link" href="/">Image to STL</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/library">Library</a>
-        </li>
+    <div  align="center" style="width:50%; margin: auto; padding: 20px;">
+    <ul  class="list-group">
+        {%- for item in files %}
+        <a><li  class="list-group-item">
+            <a href="{{url_for('download', filename=item.name)}}">
+                {{ item.name }}
+            </a>
+            <div id="stl_cont{{ item.key }}" style="width:250px;height:250px;margin:0 auto;"></div>
+        </li></a>
+        {%- endfor %}
     </ul>
-</nav>
-</br>
-    
-<p><h1 align="center">I want to die</h1></p>
+    </div>
+    <script src="{{url_for('static', filename='stl_viewer.min.js')}}"></script>
+    <script>
+        {%- for item in files %}
+            var stl_viewer{{item.key}}=new StlViewer
+            (
+                document.getElementById("stl_cont{{item.key}}"),
+                {
+                    models:
+                    [
+                        {filename:"{{item.name}}"}
+                    ]
+                }
+            );
+        {%- endfor %}
+    </script>
 
-</body>
-</html>
+
+{% endblock %}
