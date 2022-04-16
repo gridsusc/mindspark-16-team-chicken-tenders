@@ -5,6 +5,8 @@ from img_to_stl.test import test
 from img_to_stl._3Dvoxel import _3Dvoxel
 from os import listdir
 from os.path import isfile, join
+import math
+import time
 
 
 app = Flask(__name__)
@@ -38,7 +40,7 @@ def convert_image():
     _3Dvoxel()
 
     # print where the stl file is saved
-    output_file_path = os.path.join(os.getcwd(), 'output.stl')
+    output_file_path = os.path.join(os.getcwd(), 'static/output'+str(math.trunc(time.time()))+'.stl')
     output_message = f'STL file generated and saved as {output_file_path}'
 
     # delete the copied image file
